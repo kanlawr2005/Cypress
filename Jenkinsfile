@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'npm run build'
+                sh 'npx cypress run'
             }
         }
         stage('Unit Tests') {
