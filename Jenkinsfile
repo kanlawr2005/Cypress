@@ -10,22 +10,22 @@ pipeline {
     stages {
         stage('Dependencies') {
             steps {
-                sh 'npm i'
+                sh 'sudo npm i'
             }
         }
         stage('Build') {
             steps {
-                sh 'npx cypress run'
+                sh 'sudo npx cypress run'
             }
         }
         stage('Unit Tests') {
             steps {
-                sh 'npm run test'
+                sh 'sudo npm run test'
             }
         }
         stage('e2e Tests') {
             steps {
-                sh 'npm run cypress:ci'
+                sh 'sudo npm run cypress:ci'
             }
         }
         stage('Deploy') {
