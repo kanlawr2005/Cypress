@@ -10,22 +10,22 @@ pipeline {
     stages {
         stage('Dependencies') {
             steps {
-                sh '$ sudo npm install --unsafe-perm=true --allow-root cypress'
+                sh 'sudo npm install --unsafe-perm=true --allow-root cypress'
             }
         }
         stage('Build') {
             steps {
-                sh '$ sudo npx cypress run'
+                sh 'sudo npx cypress run'
             }
         }
         stage('Unit Tests') {
             steps {
-                sh '$ sudo npm run test'
+                sh 'sudo npm run test'
             }
         }
         stage('e2e Tests') {
             steps {
-                sh '$ sudo npm run cypress:ci'
+                sh 'sudo npm run cypress:ci'
             }
         }
         stage('Deploy') {
