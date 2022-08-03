@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Dependencies') {
             steps {
-                sh '$ sudo npm i'
+                sh '$ sudo npm install --unsafe-perm=true --allow-root cypress'
             }
         }
         stage('Build') {
