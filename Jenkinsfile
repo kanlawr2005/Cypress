@@ -1,23 +1,31 @@
 pipeline {
-    agent any
+  agent {
+    // this image provides everything needed to run Cypress
+    docker {
+      image 'cypress/base:10'
+    }
+  }
 
-    tools {nodejs "node"}
-
-    environment {
-        CHROME_BIN = '/bin/google-chrome'
+  stages {
+    // first stage installs node dependencies and Cypress binary
+    stage('build') {
+      steps {
+        // there a few default environment variables on Jenkins
+        // on local Jenkins machine (assuming port 8080) see
+        // http://localhost:8080/pipeline-syntax/globals#env
+        echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
+        sh 'npm ci'
+        sh 'npm run cy:verify'
+      }
     }
 
-    stages {
-        stage('Dependencies') {
-            steps {
-               sh '''sudo su    
-               visudo -f /etc/sudoers
-               jenkins ALL= NOPASSWD: ALL
-            }
-        }
-        stage('Build') {
-            steps {
-                sh 'sudo npx cypress run'
+    stage('start local server') {
+      steps {
+        // start local server in the background
+        // we will shut it down in "post" command block
+        sh 'nohup npm run start &'
+      }
+    }
             }
         }
         stage('Unit Tests') {
