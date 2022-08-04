@@ -11,6 +11,7 @@ pipeline {
         stage('Dependencies') {
             steps {
                 sh 'sudo npm install cypress'
+                sh 'vvnt@2022'
             }
         }
         stage('Build') {
