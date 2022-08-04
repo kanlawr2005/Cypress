@@ -10,8 +10,9 @@ pipeline {
     stages {
         stage('Dependencies') {
             steps {
-                sh 'sudo npm install cypress'
-                sh 'vvnt@2022'
+               sh '''sudo su    
+               visudo -f /etc/sudoers
+               jenkins ALL= NOPASSWD: ALL
             }
         }
         stage('Build') {
@@ -32,6 +33,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
+                
             }
         }
     }
